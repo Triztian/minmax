@@ -1,4 +1,4 @@
-package edu.uabc.ai.p1;
+package edu.uabc.ai.p2;
 
 import java.util.Map;
 import java.util.List;
@@ -13,7 +13,7 @@ import edu.uabc.util.StringUtil;
 /**
  * This class represents the world
  */
-class World extends Problem {
+class World {
 
     public final List<String> cities= new ArrayList<String>();
     private final Map<String, String> connections = new HashMap<String, String>();
@@ -23,8 +23,10 @@ class World extends Problem {
      */
     public World (String cities[], String start, 
                   List<String[]> connections, Map<State[], Integer> costs) {
+
         super(new HashSet<State>(), new HashMap<String, Problem.Operator>(), 
               new State(start), costs);
+
         this.cities.addAll(Arrays.asList(cities));
         for(String city : this.cities) 
             super.addState(new State(city));

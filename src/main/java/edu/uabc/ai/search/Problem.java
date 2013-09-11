@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import edu.uabc.util.StringUtil;
 
-public abstract class Problem {
+public class Problem {
 
     public final Set<State> states= new HashSet<State>();
     public final Map<String, Operator> operators= new HashMap<String, Operator>();
@@ -35,7 +35,7 @@ public abstract class Problem {
     }
 
     /**
-     * Create a new problem.
+     * Create a new problem that has a cost to transition from states.
      */
     public Problem(Set<State> states, State q0, 
                    Map<String, Operator> operators, Map<State[], Integer> costs) {
@@ -104,6 +104,10 @@ public abstract class Problem {
     }
 
 
+    /**
+     * Add a new state to the problem
+     * @param s The state to be added.
+     */
     protected void addState(State s) {
         this.states.add(s);
     };
