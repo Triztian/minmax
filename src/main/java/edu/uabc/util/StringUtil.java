@@ -26,4 +26,10 @@ public final class StringUtil {
         return sb.length() > 0 ? sb.substring(0, sb.length() - delimiter.length()) : "";
     }
 
+    public static String join(String delimiter, int items[]) {
+        Integer tmp[]= new Integer[items.length];
+        for(int i =0; i < items.length; i++) tmp[i]= new Integer(items[i]);
+        return join(delimiter, tmp);
+    }
+
 }

@@ -74,6 +74,14 @@ public class Problem {
         return op.apply(this.getState(), s);
     }
 
+    /**
+     * Obtain the cost to transition from a given state to another.
+     *
+     * @param a The starting state.
+     * @param b The next state.
+     * @return An integer that represents the cost to transition from 
+     *         one state to another.
+     */
     public int cost(State a, State b) {
         for(Map.Entry<State[], Integer> e : this.cost.entrySet())
             if (e.getKey()[0].equals(a) && e.getKey()[1].equals(b))
@@ -82,6 +90,23 @@ public class Problem {
         throw new RuntimeException(
             String.format("There is no cost from %s to %s.", a.toString(), b.toString())
         );
+    }
+
+    /**
+     * Obtaint the total cost of walking the given path.
+     *
+     * @param path The sequece of states that will be traversed.
+     * @return An integer that represents the sum of the cost 
+     *         of traversing the given path.
+     */
+    public int cost(State ... path) {
+        int c= 0;
+        if (path.length < 2)
+                throw new RuntimeException("There are no tranistions on the given path");
+        for(int i=1; i < path.length; i++)
+            c += cost(path[i - 1], path[i]);
+
+        return c;
     }
 
     /**

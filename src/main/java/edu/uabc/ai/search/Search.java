@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Iterator;
 /** 
@@ -50,7 +51,10 @@ public class Search {
             
             visited.add(n);
 
-            for(Node nn : toNode(n, p.expand(n.state)))
+            Node nds[] = toNode(n, p.expand(n.state));
+            Arrays.sort(nds, new Node.CostComparator());
+            
+            for(Node nn : nds)
                 if (!visited.contains(nn))
                     nodes.offer(nn);
         }
@@ -66,6 +70,23 @@ public class Search {
      */
     private boolean isGoal(State s) {
         return s.equals(this.f);
+    }
+
+    /**
+     * Create an array of nodes from a set of states.
+     *
+     * @param parent The parent node of all the states.
+     * @param states The states to from which we will create the nodes.
+     * 
+     * @return An array of nodes.
+     */
+    public static Node[] toNode(Node parent, State ... states) {
+        List<Node> nodes= new ArrayList<Node>();
+        for(State s : states) {
+            nodes.add(new Node(s, parent, parent.depth + 1, 0));
+        }
+
+        return nodes.toArray(new Node[nodes.size()]);
     }
 
     /**
@@ -94,23 +115,6 @@ public class Search {
     }
 
     /**
-     * Create an array of nodes from a set of states.
-     *
-     * @param parent The parent node of all the states.
-     * @param states The states to from which we will create the nodes.
-     * 
-     * @return An array of nodes.
-     */
-    public static Node[] toNode(Node parent, State ... states) {
-        List<Node> nodes= new ArrayList<Node>();
-        for(State s : states) {
-            nodes.add(new Node(s, parent, parent.depth + 1, 0));
-        }
-
-        return nodes.toArray(new Node[nodes.size()]);
-    }
-
-    /**
      * This represents an internal node for providing a solution to the problem
      */
     public static class Node {
@@ -134,6 +138,13 @@ public class Search {
                 parent != null ? parent.state.toString() : "ROOT", 
                 this.depth, this.state.value.toString()
             );
+        }
+
+        public static class CostComparator implements Comparator<Node> {
+            @Override 
+            public int compare(Node a, Node b) {
+                return a.cost == b.cost ? 0 : (a.cost > b.cost ? 1 : -1);
+            }
         }
     }
 }
