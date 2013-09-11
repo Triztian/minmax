@@ -1,5 +1,7 @@
 package edu.uabc.ai.p2;
 
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,17 @@ import static edu.uabc.ai.search.State.States;
 import edu.uabc.util.StringUtil;
 
 public class P2 {
+    public static void main(String args[]) {
+        Problem P = P2.getProblem(CITIES, "A", CONNECTIONS, COSTS);
+        State q0 = new State("I");
+
+        Search search= new Search(P, q0);
+        State path[]= search.solve();
+        
+        System.out.println("Solving...");
+        System.out.println("Solution: "  + StringUtil.join(" -> ", path));
+    }
+
     private static final String CITIES[] = new String[] {
         "A", "B", "C", "D", "E", "F", "G", "H", "I"
     };
@@ -36,13 +49,37 @@ public class P2 {
         put(States("H", "I"), 70);
     }};
 
-    public static void main(String args[]) {
-        Problem world= new World(CITIES, "A", CONNECTIONS, COSTS);
+    /**
+     */
+    public static Problem getProblem (String cities[], String start, 
+                  List<String[]> connections, Map<State[], Integer> costs) {
+        Set<State> states =  new HashSet<State>();
+        Map<String, Problem.Operator> operators = new HashMap<String, Problem.Operator>();
 
-        Search search= new Search(world, new State("I"));
-        State path[]= search.solve();
-        
-        System.out.println("Solving...");
-        System.out.println("Solution: "  + StringUtil.join(" -> ", path));
+        for(String city : cities) 
+            states.add(new State(city));
+
+        for(String c[] : connections) {
+            for(int i=1; i < c.length; i++) {
+                final String k= c[i - 1];
+                final String v= c[i];
+
+                final State sa= S(k);
+                final State sb= S(v);
+                
+                operators.put(
+                    String.format("From%sTo%s", k, v), 
+                    new Problem.Operator() { 
+                        @Override
+                        public boolean apply(State a, State b) {
+                           return sa.equals(a) && sb.equals(b);
+                        }
+                    }
+                );
+            }
+        }
+
+        return new Problem(states, new State(start), operators, costs);
     }
+
 }
