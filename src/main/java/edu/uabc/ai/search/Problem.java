@@ -16,7 +16,6 @@ public abstract class Problem {
     public final Map<String, Operator> operators= new HashMap<String, Operator>();
     public final Map<State[], Integer> cost= new HashMap<State[], Integer>();
     private State currentState;
-    protected int cost;
 
     /**  
      * Create a new problem that has no cost to transition between states.
@@ -29,8 +28,8 @@ public abstract class Problem {
         State sa[]= states.toArray(new State[states.size()]), 
               sb[]= states.toArray(new State[states.size()]);
 
-        for(State a : states.values()) 
-            for (State b : states.values())
+        for(State a : sa) 
+            for (State b : sb)
                 if (!a.equals(b))
                     this.cost.put(new State[]{a, b}, 0);
     }
@@ -44,7 +43,7 @@ public abstract class Problem {
         this.states.addAll(states);
         this.operators.putAll(operators);
         this.currentState= q0;
-        this.costs.putAll(costs);
+        this.cost.putAll(costs);
     }
 
     /**
@@ -52,10 +51,6 @@ public abstract class Problem {
      */
     public State getState() {
         return currentState;
-    }
-
-    public int getCost() {
-        return this.cost;
     }
 
     /**
@@ -79,7 +74,15 @@ public abstract class Problem {
         return op.apply(this.getState(), s);
     }
 
-    public abstract int cost();
+    public int cost(State a, State b) {
+        for(Map.Entry<State[], Integer> e : this.cost.entrySet())
+            if (e.getKey()[0].equals(a) && e.getKey()[1].equals(b))
+                return e.getValue().intValue();
+    
+        throw new RuntimeException(
+            String.format("There is no cost from %s to %s.", a.toString(), b.toString())
+        );
+    }
 
     /**
      * This function calculates all the possible states to which the problem 

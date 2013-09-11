@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import edu.uabc.ai.search.*;
 import edu.uabc.util.StringUtil;
 
-public class App {
+public class P1 {
     private static final String CITIES[] = new String[] {
         "A", "B", "C", "D", "E", "F", "G", "H", "I"
     };

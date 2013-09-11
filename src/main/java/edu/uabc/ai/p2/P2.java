@@ -1,4 +1,4 @@
-package edu.uabc.ai.p1;
+package edu.uabc.ai.p2;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import static edu.uabc.ai.search.State.S;
 import static edu.uabc.ai.search.State.States;
 import edu.uabc.util.StringUtil;
 
-public class App {
+public class P2 {
     private static final String CITIES[] = new String[] {
         "A", "B", "C", "D", "E", "F", "G", "H", "I"
     };

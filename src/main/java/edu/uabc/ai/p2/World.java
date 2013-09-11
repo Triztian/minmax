@@ -21,8 +21,10 @@ class World extends Problem {
     /**
      * Create a new world.
      */
-    public World (String cities[], List<String[]> connections, String start) {
-        super(new HashSet<State>(), new HashMap<String, Problem.Operator>(), new State(start));
+    public World (String cities[], String start, 
+                  List<String[]> connections, Map<State[], Integer> costs) {
+        super(new HashSet<State>(), new HashMap<String, Problem.Operator>(), 
+              new State(start), costs);
         this.cities.addAll(Arrays.asList(cities));
         for(String city : this.cities) 
             super.addState(new State(city));
