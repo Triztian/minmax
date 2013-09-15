@@ -52,6 +52,7 @@ public class P2 {
         put(States("A", "E"), 50);
         put(States("B", "C"), 35);
         put(States("C", "D"), 35);
+        put(States("C", "E"), 80);
         put(States("D", "E"), 40);
         put(States("E", "F"), 60);
         put(States("F", "G"), 25);

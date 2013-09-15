@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.Collections;
 
 import edu.uabc.util.StringUtil;
 /** 
@@ -31,10 +32,14 @@ public class Search {
         this.f= f;
     }
 
+    public State[] solve() {
+        return this.solve(false);
+    }
+
     /** 
      * Obtain a solution to the problem.
      */
-    public State[] solve() {
+    public State[] solve(boolean maximizeCost) {
         LinkedList<Node> nodes= new LinkedList<Node>(Arrays.asList(
             new Node(p.getState(), Node.ROOT, 0, 0)));
 
@@ -57,6 +62,11 @@ public class Search {
             System.out.println(this.getClass().getName() + ": Neighbors: " +
                                StringUtil.join(", ", nds));
             Arrays.sort(nds, new Node.CostComparator());
+            if (maximizeCost) { 
+                List<Node> tmp = Arrays.asList(nds);
+                Collections.reverse(tmp);
+                nds= tmp.toArray(new Node[tmp.size()]);
+            }
             System.out.println(this.getClass().getName() + ": Sorted Neighbors: " +
                                StringUtil.join(", ", nds));
             
@@ -67,7 +77,7 @@ public class Search {
         System.out.println(n);
         return Search.getTransitions(n);
     }
-
+    
     /**
      * Function that determines if a given state is the objective
      * 
