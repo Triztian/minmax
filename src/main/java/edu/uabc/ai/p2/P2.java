@@ -48,7 +48,7 @@ public class P2 {
     private static final Map<State[], Integer> COSTS= new HashMap<State[], Integer>(){{
         put(States("A", "B"), 50);
         put(States("A", "C"), 20);
-        put(States("A", "D"), 50);
+        put(States("A", "D"), 70);
         put(States("A", "E"), 50);
         put(States("B", "C"), 35);
         put(States("C", "D"), 35);

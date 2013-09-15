@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Iterator;
+
+import edu.uabc.util.StringUtil;
 /** 
  * This class performs a search and returns the path
  * to the specified goal state.
@@ -52,7 +54,11 @@ public class Search {
             visited.add(n);
 
             Node nds[] = toNode(n, p.expand(n.state));
+            System.out.println(this.getClass().getName() + ": Neighbors: " +
+                               StringUtil.join(", ", nds));
             Arrays.sort(nds, new Node.CostComparator());
+            System.out.println(this.getClass().getName() + ": Sorted Neighbors: " +
+                               StringUtil.join(", ", nds));
             
             for(Node nn : nds)
                 if (!visited.contains(nn))
@@ -80,10 +86,10 @@ public class Search {
      * 
      * @return An array of nodes.
      */
-    public static Node[] toNode(Node parent, State ... states) {
+    public Node[] toNode(Node parent, State ... states) {
         List<Node> nodes= new ArrayList<Node>();
         for(State s : states) {
-            nodes.add(new Node(s, parent, parent.depth + 1, 0));
+            nodes.add(new Node(s, parent, parent.depth + 1, this.p.cost(parent.state, s)));
         }
 
         return nodes.toArray(new Node[nodes.size()]);
@@ -134,9 +140,9 @@ public class Search {
         
         @Override
         public String toString() {
-            return String.format("N(%s, %d):%s", 
+            return String.format("N(%s, %d, %d):%s", 
                 parent != null ? parent.state.toString() : "ROOT", 
-                this.depth, this.state.value.toString()
+                this.depth, this.cost, this.state.value.toString()
             );
         }
 
