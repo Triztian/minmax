@@ -123,8 +123,6 @@ public class Problem {
                 }
             }
         }
-        System.out.println(getClass().getName() + ": Expanded: " + 
-                           StringUtil.join(", ", states));
         return states.toArray(new State[states.size()]);
     }
 

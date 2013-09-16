@@ -60,15 +60,16 @@ public class Search {
 
             Node nds[] = toNode(n, p.expand(n.state));
             System.out.println(this.getClass().getName() + ": Neighbors: " +
-                               StringUtil.join(", ", nds));
+                               StringUtil.join(" | ", nds));
             Arrays.sort(nds, new Node.CostComparator());
             if (maximizeCost) { 
+                System.out.println(this.getClass().getName() + ": Maximizing Cost");
                 List<Node> tmp = Arrays.asList(nds);
                 Collections.reverse(tmp);
                 nds= tmp.toArray(new Node[tmp.size()]);
             }
             System.out.println(this.getClass().getName() + ": Sorted Neighbors: " +
-                               StringUtil.join(", ", nds));
+                               StringUtil.join(" | ", nds));
             
             for(Node nn : nds)
                 if (!visited.contains(nn))

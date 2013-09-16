@@ -18,7 +18,7 @@ public class P2 {
         State q0 = new State("I");
 
         Search search= new Search(P, q0);
-        State path[]= search.solve();
+        State path[]= search.solve(true);
         int costs[]= new int[path.length];
         for(int i=1; i < path.length; i++)
                 costs[i]= P.cost(path[i - 1], path[i]);
@@ -41,7 +41,7 @@ public class P2 {
         add(new String[] {"A", "B", "E", "H", "I"});
         add(new String[] {"A", "E", "G", "I"});
         add(new String[] {"A", "C", "E", "I"});
-        add(new String[] {"A", "D", "I"});
+        add(new String[] {"A", "D", "G,", "I"});
     }};
 
     // The costs to transition between states
@@ -51,13 +51,19 @@ public class P2 {
         put(States("A", "D"), 70);
         put(States("A", "E"), 50);
         put(States("B", "C"), 35);
+        put(States("B", "E"), 60);
         put(States("C", "D"), 35);
         put(States("C", "E"), 80);
         put(States("D", "E"), 40);
+        put(States("D", "G"), 60);
+        put(States("D", "I"), 20);
         put(States("E", "F"), 60);
         put(States("F", "G"), 25);
         put(States("G", "H"), 50);
+        put(States("G", "I"), 80);
         put(States("H", "I"), 70);
+        put(States("E", "G"), 45);
+        put(States("E", "H"), 60);
         put(States("E", "I"), 40);
     }};
 
