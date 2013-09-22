@@ -15,7 +15,7 @@ public class Problem {
     public final Set<State> states= new HashSet<State>();
     public final Map<String, Operator> operators= new HashMap<String, Operator>();
     public final Map<State[], Integer> cost= new HashMap<State[], Integer>();
-    public final Map<State, Integer> fitness= new HashMap<State, Integer>();
+    public final Map<State, Integer> leastCost= new HashMap<State, Integer>();
 
     private State currentState;
 
@@ -24,7 +24,6 @@ public class Problem {
      *
      * @param states    The set of states that a problem has.
      * @param operators The applicable operators within a problem.
-     * @param 
      * @param q0        The initial state.
      */
     public Problem(Set<State> states, Map<String, Operator> operators, State q0) {
@@ -121,9 +120,9 @@ public class Problem {
     }
 
     /**
-     * Obtaint the total cost of walking the given path.
+     * Obtain the total cost of traversing the given path.
      *
-     * @param path The sequece of states that will be traversed.
+     * @param path The sequence of states that will be traversed.
      * @return An integer that represents the sum of the cost 
      *         of traversing the given path.
      */
@@ -135,19 +134,6 @@ public class Problem {
             c += cost(path[i - 1], path[i]);
 
         return c;
-    }
-
-    /**
-     * Determines the fitness of transitioning to that state, given a
-     * existing path.
-     * 
-     * @param path  The traversed state path.
-     * @param n     The next state.
-     *
-     * @return The fitness of a state, represented as int.
-     */
-    public int fitness(State path[], State n) {
-
     }
 
     /**

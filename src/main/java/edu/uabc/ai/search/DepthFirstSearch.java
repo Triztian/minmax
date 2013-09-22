@@ -1,6 +1,7 @@
 package edu.uabc.ai.search;
 
 import java.util.Set;
+import java.util.Stack;
 import java.util.List;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -10,12 +11,13 @@ import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.Collections;
 
+import edu.uabc.ai.search.Node;
 import edu.uabc.util.StringUtil;
 /** 
  * This class performs a search and returns the path
  * to the specified goal state.
  */
-public class Search {
+public class DepthFirstSearch {
 
     public static final State FAIL[]= null;
     private Problem p;
@@ -40,43 +42,6 @@ public class Search {
      * Obtain a solution to the problem.
      */
     public State[] solve(boolean maximizeCost) {
-        LinkedList<Node> nodes= new LinkedList<Node>(Arrays.asList(
-            new Node(p.getState(), Node.ROOT, 0, 0)));
-
-        Set<Node> visited= new HashSet<Node>();
-        
-        Node n;
-        while(true) {
-            if (nodes.peek() == null) 
-                return Search.FAIL;
-
-            n= nodes.pop();
-            System.out.println(this.getClass().getName() + 
-                               ": Testing node: " + n.toString());
-            if (isGoal(n.state))
-                break;
-            
-            visited.add(n);
-
-            Node nds[] = toNode(n, p.expand(n.state));
-            System.out.println(this.getClass().getName() + ": Neighbors: " +
-                               StringUtil.join(" | ", nds));
-            Arrays.sort(nds, new Node.CostComparator());
-            if (maximizeCost) { 
-                System.out.println(this.getClass().getName() + ": Maximizing Cost");
-                List<Node> tmp = Arrays.asList(nds);
-                Collections.reverse(tmp);
-                nds= tmp.toArray(new Node[tmp.size()]);
-            }
-            System.out.println(this.getClass().getName() + ": Sorted Neighbors: " +
-                               StringUtil.join(" | ", nds));
-            
-            for(Node nn : nds)
-                if (!visited.contains(nn))
-                    nodes.offer(nn);
-        }
-        System.out.println(n);
-        return Search.getTransitions(n);
     }
     
     /**
