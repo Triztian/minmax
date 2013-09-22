@@ -18,7 +18,7 @@ public class P2 {
         State q0 = new State("I");
 
         Search search= new Search(P, q0);
-        State path[]= search.solve(true);
+        State path[]= search.solve();
         int costs[]= new int[path.length];
         for(int i=1; i < path.length; i++)
                 costs[i]= P.cost(path[i - 1], path[i]);
