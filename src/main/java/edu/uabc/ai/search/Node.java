@@ -12,6 +12,16 @@ public class Node {
     public final int depth;
     public final int cost;
 
+    /**
+     * Create a new node.
+     * 
+     * @param s      The node's state.
+     * @param parent The nodes parent node.
+     * @param depth  The nodes depth within the tree, it might also be
+     *               the number of transitions necessary to reach the node.
+     * @param cost   The cost of the node, this could be transition cost, 
+     *               or accumulated cost.
+     */
     public Node(State s, Node parent, int depth, int cost) {
         this.state= s;
         this.parent= parent;

@@ -13,27 +13,23 @@ import java.util.Collections;
 
 import edu.uabc.ai.search.Node;
 import edu.uabc.util.StringUtil;
+
 /** 
  * This class performs a search and returns the path
  * to the specified goal state.
  */
-public class DepthFirstSearch {
+public class DepthFirstSearch extends Search {
 
-    public static final State FAIL[]= null;
-    private Problem p;
-    private State f;
 
     /**
      * Create a new search for a solution to a problem
-     * 
-     * @param p The problem to be solved
-     * @param f The desired solution state.
+     * * @param p The problem to be solved * @param f The desired solution state.
      */
     public Search(Problem p, State f) {
-        this.p= p;
-        this.f= f;
+        super(p, f);
     }
 
+    @Override
     public State[] solve() {
         return this.solve(false);
     }
@@ -42,58 +38,39 @@ public class DepthFirstSearch {
      * Obtain a solution to the problem.
      */
     public State[] solve(boolean maximizeCost) {
-    }
-    
-    /**
-     * Function that determines if a given state is the objective
-     * 
-     * @param s The state to be tested.
-     * @return true if the state is the goal, false otherwise.
-     */
-    private boolean isGoal(State s) {
-        return s.equals(this.f);
-    }
+        Stack s = new Stack();
+        Set<Node> discovered =  new HashSet<Node>();
+        Set<Node> explored = new HashSet<Node>();
+        
+        Node t;
+        s.push(super.toRootNode(0));
+        while (!s.empty()) {
+            t= s.peek();
+            if (isGoal(t))
+                return t.toPath();
+            
+            if (successorsDiscovered(t))
+                explored.add(t);
 
-    /**
-     * Create an array of nodes from a set of states.
-     *
-     * @param parent The parent node of all the states.
-     * @param states The states to from which we will create the nodes.
-     * 
-     * @return An array of nodes.
-     */
-    public Node[] toNode(Node parent, State ... states) {
-        List<Node> nodes= new ArrayList<Node>();
-        for(State s : states) {
-            nodes.add(new Node(s, parent, parent.depth + 1, this.p.cost(parent.state, s)));
+            Node nds[] = getSuccessors(t, false); toNode(t, expand(t.state));
+
+            for(Node e : nds) {
+                if (explored.contains(e))
+                    continue;
+
+                if (!discovered.contains(e)) {
+                    discovered.add(e);
+                    s.push(e);
+                    break;
+                }
+            }
+            s.pop();
         }
 
-        return nodes.toArray(new Node[nodes.size()]);
+        return new State[0];
     }
+    
+    private Node _dfs(Node G, ) {
 
-    /**
-     * Obtain the array of states that derive from the node
-     * and its parents.
-     * 
-     * @param n The node from where the state transitions will
-     *          be derived
-     * @return An array of states in which the first elements is
-     *         the intitial state of the problem.
-     */
-    private static State[] getTransitions(Search.Node n) {
-        LinkedList<State> states= new LinkedList<State>();
-        do {
-            System.out.println("Node: " + n.toString());
-            states.offer(n.state);
-            n= n.parent;
-        } while(n.parent  != null);
-        states.offer(n.state);
-
-        State s[] = new State[states.size()];
-        Iterator<State> rIter= states.descendingIterator();
-        for(int i=0; rIter.hasNext(); i++) 
-            s[i]= rIter.next();
-        return s;
     }
-
 }
