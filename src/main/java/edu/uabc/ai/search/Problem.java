@@ -15,10 +15,38 @@ public class Problem {
     public final Set<State> states= new HashSet<State>();
     public final Map<String, Operator> operators= new HashMap<String, Operator>();
     public final Map<State[], Integer> cost= new HashMap<State[], Integer>();
+    public final Map<State, Integer> fitness= new HashMap<State, Integer>();
+
     private State currentState;
 
     /**  
      * Create a new problem that has no cost to transition between states.
+     *
+     * @param states    The set of states that a problem has.
+     * @param operators The applicable operators within a problem.
+     * @param 
+     * @param q0        The initial state.
+     */
+    public Problem(Set<State> states, Map<String, Operator> operators, State q0) {
+        this.states.addAll(states);
+        this.operators.putAll(operators);
+        this.currentState= q0;
+        
+        State sa[]= states.toArray(new State[states.size()]), 
+              sb[]= states.toArray(new State[states.size()]);
+
+        for(State a : sa) 
+            for (State b : sb)
+                if (!a.equals(b))
+                    this.cost.put(new State[]{a, b}, 0);
+    }
+
+    /**  
+     * Create a new problem that has no cost to transition between states.
+     *
+     * @param states    The set of states that a problem has.
+     * @param operators The applicable operators within a problem.
+     * @param q0        The initial state.
      */
     public Problem(Set<State> states, Map<String, Operator> operators, State q0) {
         this.states.addAll(states);
@@ -107,6 +135,19 @@ public class Problem {
             c += cost(path[i - 1], path[i]);
 
         return c;
+    }
+
+    /**
+     * Determines the fitness of transitioning to that state, given a
+     * existing path.
+     * 
+     * @param path  The traversed state path.
+     * @param n     The next state.
+     *
+     * @return The fitness of a state, represented as int.
+     */
+    public int fitness(State path[], State n) {
+
     }
 
     /**
