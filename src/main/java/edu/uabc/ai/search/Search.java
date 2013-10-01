@@ -1,5 +1,10 @@
 package edu.uabc.ai.search;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import edu.uabc.ai.search.Node;
 public abstract class Search {
 
@@ -22,18 +27,20 @@ public abstract class Search {
      * @return true if the state is the goal, false otherwise.
      */
     private boolean isGoal(Node n) {
-        return n.state.equals(this.f);
+        return n.state.equals(this.g);
     }
 
     /**
      */
-    protected getSuccessors(Node n, boolean maximizeCost) {
+    protected Node[] getSuccessors(Node n, boolean maximizeCost) {
+        Node nds[] = toNode(n, p.expand(n.state));
         Arrays.sort(nds, new Node.CostComparator());
         if (maximizeCost) { 
             List<Node> tmp = Arrays.asList(nds);
             Collections.reverse(tmp);
             nds= tmp.toArray(new Node[tmp.size()]);
         }
+        return nds;
     }
 
     /**

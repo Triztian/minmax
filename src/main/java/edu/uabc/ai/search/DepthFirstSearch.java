@@ -12,8 +12,8 @@ import java.util.Iterator;
 import java.util.Collections;
 
 import edu.uabc.ai.search.Node;
-import edu.uabc.util.StringUtil;
-
+import edu.uabc.ai.search.Search;
+import edu.uabc.util.StringUtil; 
 /** 
  * This class performs a search and returns the path
  * to the specified goal state.
@@ -25,7 +25,7 @@ public class DepthFirstSearch extends Search {
      * Create a new search for a solution to a problem
      * * @param p The problem to be solved * @param f The desired solution state.
      */
-    public Search(Problem p, State f) {
+    public DepthFirstSearch(Problem p, State f) {
         super(p, f);
     }
 
@@ -43,7 +43,7 @@ public class DepthFirstSearch extends Search {
         Set<Node> explored = new HashSet<Node>();
         
         Node t;
-        s.push(super.toRootNode(0));
+        s.push(super.getRootNode(0));
         while (!s.empty()) {
             t= s.peek();
             if (isGoal(t))
@@ -68,9 +68,5 @@ public class DepthFirstSearch extends Search {
         }
 
         return new State[0];
-    }
-    
-    private Node _dfs(Node G, ) {
-
     }
 }
