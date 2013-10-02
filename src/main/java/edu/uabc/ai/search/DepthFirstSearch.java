@@ -25,7 +25,7 @@ public class DepthFirstSearch extends Search {
      * Create a new search for a solution to a problem
      * * @param p The problem to be solved * @param f The desired solution state.
      */
-    public Search(Problem p, State f) {
+    public DepthFirstSearch(Problem p, State f) {
         super(p, f);
     }
 
@@ -68,9 +68,5 @@ public class DepthFirstSearch extends Search {
         }
 
         return new State[0];
-    }
-    
-    private Node _dfs(Node G, ) {
-
     }
 }

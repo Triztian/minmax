@@ -16,10 +16,8 @@ import edu.uabc.util.StringUtil;
  * This class performs a search and returns the path
  * to the specified goal state.
  */
-public class BreadthFirstSearch {
+public class BreadthFirstSearch extends Search {
     public static final State FAIL[]= null;
-    private Problem p;
-    private State f;
 
     /**
      * Create a new search for a solution to a problem
@@ -28,8 +26,7 @@ public class BreadthFirstSearch {
      * @param f The desired solution state.
      */
     public BreadthFirstSearch(Problem p, State f) {
-        this.p= p;
-        this.f= f;
+        super(p, f);
     }
 
     public State[] solve() {
