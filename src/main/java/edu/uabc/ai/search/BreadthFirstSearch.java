@@ -27,7 +27,7 @@ public class BreadthFirstSearch {
      * @param p The problem to be solved
      * @param f The desired solution state.
      */
-    public Search(Problem p, State f) {
+    public BreadthFirstSearch(Problem p, State f) {
         this.p= p;
         this.f= f;
     }
