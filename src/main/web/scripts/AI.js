@@ -75,7 +75,7 @@ AI.prototype.score = function score(board, isMax) {
  * @return El puntaje calculado
  */
 AI.prototype._minimax = function(depth, isMax, alpha, beta) {
-    console.log(new Date(), depth, isMax? 'Max': "Min", this.board.toString());
+    console.log(arguments);
     var bestCell= -1;
     var score = undefined;
     var nextMoves = this.getNextMoves();
@@ -83,26 +83,26 @@ AI.prototype._minimax = function(depth, isMax, alpha, beta) {
     if (nextMoves.length === 0 || depth === 0)
        return [this.score(this.board, isMax), bestCell];
 
-    var tmp= this.board;
     for(var c in nextMoves) {
         var move= nextMoves[c];
-        this.board = this.board.setMark(move, isMax);
-        if (isMax) {
-            console.log(new Date() + 'Max to ', move, tmp.toString());
+		console.log('Next moves: ' + nextMoves);
+		this.board.marks[move]= isMax? 'X' : 'O';
+		if (isMax) {
             score = this._minimax(depth - 1, !isMax, alpha, beta)[0];
+			console.log('Max(' + move + ') => ' + this.board.toString() + ' = ' + score);
             if (score > alpha) { 
                 alpha = score;
                 bestCell = move;
             }
         } else {
-            console.log(new Date() + 'Min to ', move, tmp.toString());
-            score = this._minimax(depth - 1, isMax, alpha, beta)[0];
+             score = this._minimax(depth - 1, isMax, alpha, beta)[0];
+			 console.log('Min(' + move + ') => ' + this.board.toString() + ' = ' + score);
             if (score < beta) { 
                 beta = score;
                 bestCell = move;
             }
         }
-        this.board = this.board.clearMark(move);
+       this.board.marks[move]= undefined;
 
         if (alpha >= beta) break; 
     }
@@ -125,17 +125,12 @@ AI.prototype.getNextMoves = function() {
 AI.prototype.makeMove = function() {
     var result = undefined;
     var marks = this.board.countMarks();
-    console.log(new Date() + marks + ' Marks');
-
+    
     if (marks === 0) {
         result = [Infinity, parseInt(Math.random() * 9)];
     } else { 
         result = this._minimax(2, AI.I_AM_MAX, -Infinity, Infinity);
     }
-    console.log(new Date() + 'Making move: ' + result);
-    return (this.board.setMark(result[1], true));
-};
-
-AI.prototype.wins = function(board, isMax) {
-
+    
+    return this.board.setMark(result[1], true);
 };
