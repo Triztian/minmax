@@ -26,7 +26,12 @@ public class BreadthFirstSearch extends Search {
      * @param f The desired solution state.
      */
     public BreadthFirstSearch(Problem p, State f) {
+<<<<<<< HEAD
         super(p, f);
+=======
+        this.p= p;
+        this.f= f;
+>>>>>>> 1830c788ad0ef87285be9287ddb0d56457fa86af
     }
 
     public State[] solve() {

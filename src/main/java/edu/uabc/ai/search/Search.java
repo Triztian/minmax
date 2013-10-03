@@ -1,8 +1,16 @@
 package edu.uabc.ai.search;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
+=======
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
+>>>>>>> 1830c788ad0ef87285be9287ddb0d56457fa86af
 import edu.uabc.ai.search.Node;
 
 public abstract class Search {
@@ -26,7 +34,7 @@ public abstract class Search {
      * @return true if the state is the goal, false otherwise.
      */
     private boolean isGoal(Node n) {
-        return n.state.equals(this.f);
+        return n.state.equals(this.g);
     }
 
     /**

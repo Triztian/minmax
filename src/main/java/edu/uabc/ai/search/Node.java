@@ -1,6 +1,8 @@
 package edu.uabc.ai.search;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Iterator;
 /**
  * This represents an internal node for providing a solution to the problem
  */
@@ -69,6 +71,4 @@ public class Node {
             return a.cost == b.cost ? 0 : (a.cost > b.cost ? 1 : -1);
         }
     }
-
-    
 }

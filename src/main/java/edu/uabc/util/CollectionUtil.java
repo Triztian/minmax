@@ -1,7 +1,8 @@
 package edu.uabc.util;
+import java.util.Collection;
 
 public final class CollectionUtil {
-    public static Collection<T> reverse(Collection<T> c) {
-
+    public static <T> Collection<T> reverse(Collection<T> c) {
+        return null;
     }
 }

@@ -40,27 +40,6 @@ public class Problem {
                     this.cost.put(new State[]{a, b}, 0);
     }
 
-    /**  
-     * Create a new problem that has no cost to transition between states.
-     *
-     * @param states    The set of states that a problem has.
-     * @param operators The applicable operators within a problem.
-     * @param q0        The initial state.
-     */
-    public Problem(Set<State> states, Map<String, Operator> operators, State q0) {
-        this.states.addAll(states);
-        this.operators.putAll(operators);
-        this.currentState= q0;
-        
-        State sa[]= states.toArray(new State[states.size()]), 
-              sb[]= states.toArray(new State[states.size()]);
-
-        for(State a : sa) 
-            for (State b : sb)
-                if (!a.equals(b))
-                    this.cost.put(new State[]{a, b}, 0);
-    }
-
     /**
      * Create a new problem that has a cost to transition from states.
      */
