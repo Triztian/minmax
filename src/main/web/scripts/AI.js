@@ -56,6 +56,8 @@ AI.prototype.score = function score(board, isMax) {
         }
     }
     score = isMax ? score : -score;
+    if (Math.abs(score) >= 100)
+        console.log('Winning move: ', board.toString(), score);
     return score;
 };
 
@@ -115,6 +117,8 @@ AI.prototype._minimax = function(depth, isMax, alpha, beta) {
  * Funcion que genera una lista de las posibles siguentes celdas a ocupar.
  */
 AI.prototype.getNextMoves = function() {
+    for(var n= 0; n < 3; n++);
+        
     return this.board.getMarkableCells();
 }
 
