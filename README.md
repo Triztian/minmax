@@ -1,4 +1,3 @@
-ai561
-=====
+# Minmax Algorithm Implementation
 
-Artificial Intelligence
+A javascript implementation of the min-max algorithm
