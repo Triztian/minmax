@@ -16,11 +16,11 @@ Board.prototype.setMark = function(cellNumber, mark) {
 }
 
 /**
- * Obtener los valores de una columna en especial.
+ * Obtain the values for a particular column.
  *
- * @param {Number} col La columna para la cual se obtendran los valores
- *                     Inician desde 0.
- * @return Un arreglo que contiene los valores de la columna especificada
+ * @param {Number} col The col number.
+ * @return An array containing the marked cell numbers.
+ *
  */
 Board.prototype.getCols = function(col) {
     var cols = [];

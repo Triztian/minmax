@@ -1,8 +1,8 @@
 /**
- * Representa un tablero de Tic-Tac-Toe.
+ * Represents the Tic-Tac-Toe board.
  *
- * @param {String} markA El simbolo a utiliar para la marca del jugador A.
- * @param {String} markB El simbolo a utiliar para la marca del jugador B.
+ * @param {String} markA The symbol to use for the A player.
+ * @param {String} markB The symbol to use for the B player.
  */
 function Board(markA, markB) {
     this.markSymbol = {};
@@ -18,10 +18,10 @@ Board.prototype.X= 'X';
 Board.prototype.O= 'O';
 
 /**
- * Colocar una marca dentro del tablero.
+ * Set a mark within the board.
  * 
- * @param {Number}  cell El numero de celda en el cual se colocara la marca.
- * @param {Bool}    mark El tipo de marca que se va a utilizar.
+ * @param {Number}  cell The cell number in which the mark will be placed.
+ * @param {Bool}    mark The mark type that will be used.
  */
 Board.prototype.setMark = function(cell, mark) {
     this.marks[cell]= this.markSymbol[mark];
@@ -29,9 +29,9 @@ Board.prototype.setMark = function(cell, mark) {
 };
 
 /**
- * Eliminar una marca dentro del tablero.
+ * Remove a mark from the board.
  * 
- * @param {Number}  cell El numero de celda en el cual se elminara la marca.
+ * @param {Number}  cell The cell number which's mark will be removed.
  */
 Board.prototype.clearMark = function(cell) {
     this.marks[cell]= undefined;
@@ -45,11 +45,9 @@ Board.prototype.getCells = function(cells) {
 
 
 /**
- * Obtener los indices de las celdas que pueden ser marcadas. Independiente 
- * del turno o jugador.
+ * Obtain the index of the cells that can be marked, regardless of the turn
  *
- * @return Un arreglo que contiene los indices de las celdas que pueden ser 
- *         marcadas.
+ * @return An array that contains the cell indexes that can be marked.
  */
 Board.prototype.getMarkableCells= function() {
     var cells = [];
@@ -62,14 +60,11 @@ Board.prototype.getMarkableCells= function() {
 
 
 /**
- * Contar el numero de marcas (turnos) que contiene el tablero.
- * Ya sea de ambos jugadores o de uno en particular.
- * Se considera marca si el valor dentro del arreglo no es
- * undefined
+ * Count the number of marks in the board.
  *
  * @param {Bool} player 
  */
-Board.prototype.countMarks= function(player) {
+Board.prototype.countMarks = function(player) {
     var self = this;
     var F = function(e) {
         return e !== undefined; 
@@ -80,13 +75,14 @@ Board.prototype.countMarks= function(player) {
     return this.marks.filter(player === undefined ? F : M).length;
 };
 
+
 /**
- * Obtener las marcas para una columna en especifico.
+ * Obtain the marks of a column.
  *
- * @param {Number} col El indice de la column : 0 - 2
+ * @param {Number} col The columns index 0 to 2
  * 
- * @return {Array} Un arreglo que contiene los valores de la 
- *                 columna especificada.
+ * @return {Array} An array that containes the values of the marked cells.
+ *
  */
 Board.prototype.getCol = function(col) {
     var marks = [];
@@ -96,14 +92,12 @@ Board.prototype.getCol = function(col) {
 };
 
 /**
- * Obtener las marcas para una una de las dos diagonales.
+ *  Obtain the marks for one of the two diagonals.
  *  -Diagonal 0: [0, 4, 8]
  *  -Diagonal 1: [2, 4, 6]
  *
- * @param {Number} col El indice de la diagonal : 0 - 1
- * 
- * @return {Array} Un arreglo que contiene los valores de la 
- *                 diagonal especificada.
+ * @return {Array} An array that contains the marked cells
+ *
  */
 Board.prototype.getDiagonal = function(diag) {
     var diags = [[0,4,8], [2,4,6]];
@@ -114,12 +108,10 @@ Board.prototype.getDiagonal = function(diag) {
 };
 
 /**
- * Obtener las marcas para una fila en especifico.
+ * Obtain the marks for a particular row.
  *
- * @param {Number} col El indice de la fila : 0 - 2
- * 
- * @return {Array} Un arreglo que contiene los valores de la 
- *                 fila especificada.
+ * @return {Array} An array containing the cell numbers that are marked.
+ *
  */
 Board.prototype.getRow = function(row) {
     var marks = [];

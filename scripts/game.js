@@ -1,8 +1,8 @@
 /**
- * Esta clase representa una partida de tic tac toe.
+ * This class represents a Tic-Tac-Toe game
  *
- * @param {AI}      playerA El jugador con IA.
- * @param {Player}  playerB El jugador humano.
+ * @param {AI}      playerA The AI player.
+ * @param {Player}  playerB The human player.
  */
 function Game(ai, viewPort) {
     this.ai = ai;
@@ -16,14 +16,14 @@ function Game(ai, viewPort) {
 
 
 /** 
- * Aqui se utiliza el turno, si es el turno del IA entonces 
- * se lleva a cabo la busqueda y calculos necesarios para optimizar 
- * la partica a favor de ella.
- * Si es el del jugador humano enconces solo se establece la marca
- * en el lugar indicado.
+ * Here the turn is consumed.
+ *
+ * If it's the AI's turn the search and necessary calculates are performed
+ * if it's the human player turn the mark is placed at the given cell number, if
+ * the cell is not occupied.
  * 
- * @param {Number} cell El indice de la celda donde se establecera la
- *                      marca.
+ * @param {Number} cell The cell number where the mark will be placed.
+ *
  */
 Game.prototype.takeTurn = function(cell) {
     if (this.winner)
@@ -53,8 +53,9 @@ Game.prototype.takeTurn = function(cell) {
     this._render(this.board);
 };
 
+
 /**
- * Obtener el set o la terna que otorga la victoria
+ * Obtain the winnig set triplets.
  *
  */
 Game.prototype.getWinningSet = function() {
@@ -74,10 +75,11 @@ Game.prototype.getWinningSet = function() {
     return undefined;
 };
 
+
 /** 
- * Renderizar el tabler a como lo veria el jugador humano.
+ * Render the board as it would be seen by the human player.
  * 
- * @param {Board} board El tablero a renderizar.
+ * @param {Board} board The board to render.
  */
 Game.prototype._render = function(board) {
     var wset = this.getWinningSet();
@@ -99,7 +101,7 @@ Game.prototype._render = function(board) {
 
 
 /**
- * Funcion que inicia el juego.
+ * Start the game.
  */
 Game.prototype.play = function() {
     this.turn = 1;

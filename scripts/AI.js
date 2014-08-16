@@ -1,8 +1,8 @@
 /**
- * Representa a el jugador con inteligencia artificial.
+ * Represents the player with the AI.
  *
- * @param {Number} lookahead El numero de movientos (estados) a futuro que 
- *                           considera antes de hacer su movimiento.
+ * @param {Number} lookahead Number of states (movements) that the AI explores
+ *                           before making its move.
  */
 function AI(myMark, opMark) {
     this.board= undefined;
@@ -11,29 +11,26 @@ function AI(myMark, opMark) {
 }
 
 /**
- * Constante para indicar que es el jugador
- * maximizante.
+ * Constant to indicate that the player is the maximising player.
  */
 AI.prototype.I_AM_MAX = true;
 
 /**
- * Esta funcion es la funcion "Heuristica de Evaluacion". Se encarga
- * de determinar el puntaje de cada jugador de manera que pueda 
- * minimizar el maximo dano infligido por el oponente.
+ * This is the heuristic evaluation function. It determines the score of each 
+ * player so that the AI can minimize the "damage" inflicted by the oponent
  * 
- * Esta funcion evalua cuanta marcas del jugador hay en las posibles
- * filas, columnas o diagonales que permiten ganar el juego.
+ * This function determines the posible marks that a player might have in 
+ * rows, columns or diagonals that would allow him to win the game.
  * 
- * El puntaje se asignara de la siguiente manera:
- *  - 1 marcas = 1 pt
- *  - 2 marcas = 10 pt
- *  - 3 marcas = 100 pt
+ * Score is assigned in the following way.
+ *  - 1 mark = 1 pt
+ *  - 2 marks = 10 pt
+ *  - 3 marks = 100 pt
  * 
- * @param {Board} board Representa al tablero de juegos
- * @param {Bool}  isMax Indica si el tablero a evaluar sera desde la
- *                      perspectiva de el jugador o el oponente.
+ * @param {Board} board Represents the game board.
+ * @param {Bool}  isMax Indicates that the game is analyzed from the human or oponents perspective.
  * 
- * @return El puntaje del tablero.
+ * @return The boards score.
  */
 AI.prototype.score = function score(board, isMax) {
     // Configuraciones
@@ -63,22 +60,19 @@ AI.prototype.score = function score(board, isMax) {
 
 
 /** 
- * El algoritmo minimax.
+ * The minmax algorithm.
  * 
- * @param {Number} depth    La profundidad del arbol. 
- *                          Si es la llamada inicial incluir los el numero
- *                          de estados "virtuales" o movimientos a futuro
- *                          que desamos considerar.
- * @param {Bool}   isMax    Indica si el jugador es el maximizante 
- *                          o minimizante.
- * @param {Number} alpha    EL valor de alpha a utilizar para el podado.
- * @param {Number} beta     EL valor de beta a utilizar para el podado.
+ * @param {Number} depth    The depth of the tree. 
+ *                          If it is the first call the number of possible states (future movements)
+ *                          to consider must be included.
+ * @param {Bool}   isMax    Indicates if this is the maximizing player if otherwise it is considered the minimizing player.
+ * @param {Number} alpha    The alpha value that is used for trimming the tree.
+ * @param {Number} beta     The beta value that is used for trimming the tree.
  * 
- * @return El puntaje calculado
+ * @return The calculated score.
  */
 AI.prototype._minimax = function(depth, isMax, alpha, beta) {
-    console.log(arguments);
-    var bestCell= -1;
+    var bestCell = -1;
     var score = undefined;
     var nextMoves = this.getNextMoves();
 
@@ -114,7 +108,7 @@ AI.prototype._minimax = function(depth, isMax, alpha, beta) {
 
 
 /**
- * Funcion que genera una lista de las posibles siguentes celdas a ocupar.
+ * Obtain the next possible moves.
  */
 AI.prototype.getNextMoves = function() {
     for(var n= 0; n < 3; n++);
@@ -123,8 +117,8 @@ AI.prototype.getNextMoves = function() {
 }
 
 
-/*
- * Realizar el movimiento dentro del tablero.
+/**
+ * Make a movement within the board.
  */
 AI.prototype.makeMove = function() {
     var result = undefined;
